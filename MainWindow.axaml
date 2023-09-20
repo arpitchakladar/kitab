@@ -1,9 +1,44 @@
 <Window xmlns="https://github.com/avaloniaui"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-        x:Class="KiTab.MainWindow"
-        Title="KiTab">
-    Welcome to Avalonia!
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	mc:Ignorable="d"
+	d:DesignWidth="800"
+	d:DesignHeight="450"
+	x:Class="KiTab.MainWindow"
+	Title="KiTab"
+>
+	<Grid
+		RowDefinitions="50, *"
+		Background="Black"
+	>
+	<Rectangle Margin="0 0 0 4" Grid.Row="0" Fill="#333333"></Rectangle>
+	<SplitView Grid.Row="1" IsPaneOpen="True"
+		DisplayMode="CompactInline"
+		OpenPaneLength="300"
+	>
+		<SplitView.Pane>
+			<StackPanel
+				Background="#777777"
+			>
+				<Label
+					VerticalAlignment="Center"
+					HorizontalAlignment="Center"
+					FontSize="24"
+					FontWeight="800"
+				>
+					CONTENT
+				</Label>
+			</StackPanel>
+		</SplitView.Pane>
+
+		<Grid
+			Grid.Row="1"
+			ColumnDefinitions="*, *"
+		>
+			<Rectangle Margin="4 0 0 4" Grid.Column="0" Fill="#555555"></Rectangle>
+			<Rectangle Margin="4 0 4 4" Grid.Column="1" Fill="#555555"></Rectangle>
+		</Grid>
+	</SplitView>
+	</Grid>
 </Window>
