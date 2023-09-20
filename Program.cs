@@ -1,5 +1,6 @@
 ﻿using Avalonia;
 using Avalonia.Media;
+using Avalonia.Svg.Skia;
 using System;
 
 namespace KiTab;
@@ -16,6 +17,8 @@ class Program
 	// Avalonia configuration, don't remove; also used by visual designer.
 	public static AppBuilder BuildAvaloniaApp()
 	{
+		GC.KeepAlive(typeof(SvgImageExtension).Assembly);
+		GC.KeepAlive(typeof(Avalonia.Svg.Skia.Svg).Assembly);
 		var fontOptions = new FontManagerOptions();
 
 		if (OperatingSystem.IsLinux())
