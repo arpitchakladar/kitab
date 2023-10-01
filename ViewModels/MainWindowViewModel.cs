@@ -9,7 +9,11 @@ public class MainWindowViewModel : ViewModelBase
 	public bool ShowPane
 	{
 		get => _showPane;
-		set => this.RaiseAndSetIfChanged(ref _showPane, value);
+		set
+		{
+			ContentPane.OnPaneToggle(value);
+			this.RaiseAndSetIfChanged(ref _showPane, value);
+		}
 	}
 
 	public ContentPaneViewModel ContentPane { get; }

@@ -8,7 +8,7 @@
 	x:Class="KiTab.Views.ContentPaneView"
 >
 	<DockPanel
-		Background="#777777"
+		Background="#777"
 	>
 		<TextBlock
 			VerticalAlignment="Top"
@@ -16,23 +16,63 @@
 			FontSize="24"
 			FontWeight="800"
 			DockPanel.Dock="Top"
+			Width="{Binding ContentVisibility}"
 		>
 			CONTENT
 		</TextBlock>
-		<Button Command="{Binding TogglePane}" Height="100" Width="20" HorizontalAlignment="Right" DockPanel.Dock="Right" VerticalAlignment="Center" Padding="0">
-			<Image Source="{SvgImage Assets/Images/caret-left.svg}" />
+		<Button
+			Command="{Binding TogglePaneCommand}"
+			Height="100"
+			Width="20"
+			HorizontalAlignment="Right"
+			DockPanel.Dock="Right"
+			VerticalAlignment="Center"
+			Padding="0"
+			Background="#777"
+			CornerRadius="{Binding TogglePaneButtonCorners}"
+		>
+			<Svg Path="{Binding PaneToggleButtonIcon, StringFormat='Assets/Images/caret-{0}.svg'}" />
 		</Button>
-		<Rectangle Margin="4 0 4 4" DockPanel.Dock="Left" Fill="#555555"></Rectangle>
-		<!--<ListBox x:Name="topics" Items="{Binding topicsIndexList}">
+		<ListBox
+			Margin="4 0 4 4"
+			Background="#777"
+			DockPanel.Dock="Left"
+			Width="{Binding ContentVisibility}"
+			ItemsSource="{Binding ContentIndexes}"
+		>
 			<ListBox.ItemTemplate>
 				<DataTemplate>
-					<Border BorderBrush="Blue" BorderThickness="1"
-						CornerRadius="4" Padding="4"
+					<Border
+						Padding="4"
 					>
-						<TextBlock Text="{Binding}"/>
+						<Grid
+							Grid.Row="1"
+							ColumnDefinitions="20, *, 20, 20"
+						>
+							<TextBlock
+								FontSize="18"
+								Grid.Column="0"
+								Text="{Binding Index, StringFormat='{}{0}.'}"
+							/>
+							<TextBlock
+								FontSize="18"
+								Grid.Column="1"
+								Text="{Binding Title}"
+							/>
+							<TextBlock
+								FontSize="18"
+								Grid.Column="2"
+								Text="{Binding StartPage}"
+							/>
+							<TextBlock
+								FontSize="18"
+								Grid.Column="4"
+								Text="{Binding EndPage}"
+							/>
+						</Grid>
 					</Border>
 				</DataTemplate>
 			</ListBox.ItemTemplate>
-		</ListBox>-->
+		</ListBox>
 	</DockPanel>
 </UserControl>

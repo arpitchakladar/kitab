@@ -25,6 +25,7 @@
 			IsPaneOpen="{Binding ShowPane}"
 			DisplayMode="CompactInline"
 			OpenPaneLength="300"
+			CompactPaneLength="20"
 		>
 			<SplitView.Pane>
 				<views:ContentPaneView DataContext="{Binding ContentPane}" />
