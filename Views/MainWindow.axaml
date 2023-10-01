@@ -3,12 +3,18 @@
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	xmlns:views="clr-namespace:KiTab.Views;assembly=KiTab"
+	xmlns:vm="using:KiTab.ViewModels"
 	mc:Ignorable="d"
 	d:DesignWidth="800"
 	d:DesignHeight="450"
 	x:Class="KiTab.Views.MainWindow"
+	x:DataType="vm:MainWindowViewModel"
 	Title="KiTab"
 >
+	<Design.DataContext>
+		<vm:MainWindowViewModel/>
+	</Design.DataContext>
+
 	<Grid
 		RowDefinitions="50, *"
 		Background="Black"
@@ -16,12 +22,12 @@
 		<Rectangle Margin="0 0 0 4" Grid.Row="0" Fill="#333333"></Rectangle>
 		<SplitView
 			Grid.Row="1"
-			IsPaneOpen="True"
+			IsPaneOpen="{Binding ShowPane}"
 			DisplayMode="CompactInline"
 			OpenPaneLength="300"
 		>
 			<SplitView.Pane>
-				<views:ContentPaneView />
+				<views:ContentPaneView DataContext="{Binding ContentPane}" />
 			</SplitView.Pane>
 
 			<Grid

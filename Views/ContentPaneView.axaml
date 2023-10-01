@@ -1,8 +1,10 @@
 <UserControl xmlns="https://github.com/avaloniaui"
-	 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-	 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-	 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-	 mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+	xmlns:vm="using:KiTab.ViewModels"
+	x:DataType="vm:ContentPaneViewModel"
 	x:Class="KiTab.Views.ContentPaneView"
 >
 	<DockPanel
@@ -17,7 +19,7 @@
 		>
 			CONTENT
 		</TextBlock>
-		<Button Height="100" Width="20" HorizontalAlignment="Right" DockPanel.Dock="Right" VerticalAlignment="Center" Padding="0">
+		<Button Command="{Binding TogglePane}" Height="100" Width="20" HorizontalAlignment="Right" DockPanel.Dock="Right" VerticalAlignment="Center" Padding="0">
 			<Image Source="{SvgImage Assets/Images/caret-left.svg}" />
 		</Button>
 		<Rectangle Margin="4 0 4 4" DockPanel.Dock="Left" Fill="#555555"></Rectangle>

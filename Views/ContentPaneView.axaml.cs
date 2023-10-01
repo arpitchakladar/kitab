@@ -6,8 +6,8 @@ namespace KiTab.Views;
 
 public partial class ContentPaneView : UserControl
 {
-    public ContentPaneView()
-    {
-        InitializeComponent();
-    }
+	public ContentPaneView()
+	{
+		InitializeComponent();
+	}
 }
