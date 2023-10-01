@@ -1,0 +1,36 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+	 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	 mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+	x:Class="KiTab.Views.ContentPaneView"
+>
+	<DockPanel
+		Background="#777777"
+	>
+		<TextBlock
+			VerticalAlignment="Top"
+			HorizontalAlignment="Center"
+			FontSize="24"
+			FontWeight="800"
+			DockPanel.Dock="Top"
+		>
+			CONTENT
+		</TextBlock>
+		<Button Height="100" Width="20" HorizontalAlignment="Right" DockPanel.Dock="Right" VerticalAlignment="Center" Padding="0">
+			<Image Source="{SvgImage Assets/Images/caret-left.svg}" />
+		</Button>
+		<Rectangle Margin="4 0 4 4" DockPanel.Dock="Left" Fill="#555555"></Rectangle>
+		<!--<ListBox x:Name="topics" Items="{Binding topicsIndexList}">
+			<ListBox.ItemTemplate>
+				<DataTemplate>
+					<Border BorderBrush="Blue" BorderThickness="1"
+						CornerRadius="4" Padding="4"
+					>
+						<TextBlock Text="{Binding}"/>
+					</Border>
+				</DataTemplate>
+			</ListBox.ItemTemplate>
+		</ListBox>-->
+	</DockPanel>
+</UserControl>

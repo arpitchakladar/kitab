@@ -1,6 +1,7 @@
 ﻿using Avalonia;
 using Avalonia.Media;
 using Avalonia.Svg.Skia;
+using Avalonia.Logging;
 using System;
 
 namespace KiTab;
@@ -31,7 +32,7 @@ class Program
 		return AppBuilder.Configure<App>()
 			.UsePlatformDetect()
 			.WithInterFont()
-			.LogToTrace()
+			.LogToTrace(LogEventLevel.Verbose)
 			.With(fontOptions);
 	}
 }
