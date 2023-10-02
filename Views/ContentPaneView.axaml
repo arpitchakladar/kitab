@@ -7,72 +7,125 @@
 	x:DataType="vm:ContentPaneViewModel"
 	x:Class="KiTab.Views.ContentPaneView"
 >
-	<DockPanel
-		Background="#777"
-	>
-		<TextBlock
-			VerticalAlignment="Top"
-			HorizontalAlignment="Center"
-			FontSize="24"
-			FontWeight="800"
+	<UserControl.Styles>
+		<Style Selector="DockPanel">
+			<Setter Property="Background" Value="#777"/>
+		</Style>
+		<Style Selector="TextBlock.Header">
+			<Setter Property="FontSize" Value="24"/>
+			<Setter Property="FontWeight" Value="800"/>
+			<Setter Property="VerticalAlignment" Value="Top"/>
+			<Setter Property="HorizontalAlignment" Value="Center"/>
+			<Setter Property="IsVisible" Value="{Binding ShowPane}"/>
+			<Setter Property="Margin" Value="0 0 0 10"/>
+		</Style>
+		<Style Selector="Button.TogglePaneButton">
+			<Setter Property="Height" Value="100"/>
+			<Setter Property="Width" Value="20"/>
+			<Setter Property="HorizontalAlignment" Value="Right"/>
+			<Setter Property="VerticalAlignment" Value="Center"/>
+			<Setter Property="Padding" Value="0"/>
+			<Setter Property="Background" Value="#777"/>
+			<Setter Property="CornerRadius" Value="{Binding TogglePaneButtonCorners}"/>
+		</Style>
+		<Style Selector="ListBox.ContentList">
+			<Setter Property="Margin" Value="4 0 4 4"/>
+			<Setter Property="Background" Value="#777"/>
+			<Setter Property="IsVisible" Value="{Binding ShowPane}"/>
+		</Style>
+		<Style Selector="TextBlock.ContentListHeaderText">
+			<Setter Property="FontSize" Value="20"/>
+			<Setter Property="FontWeight" Value="700"/>
+		</Style>
+		<Style Selector="ListBox.ContentList > ListBoxItem">
+			<Setter Property="BorderThickness" Value="0 1 0 0"/>
+			<Setter Property="BorderBrush" Value="#000"/>
+		</Style>
+		<Style Selector="TextBlock.ContentListEntryText">
+			<Setter Property="FontSize" Value="18"/>
+		</Style>
+		<Style Selector="TextBlock.ContentListEntryTitleText">
+			<Setter Property="Margin" Value="0 0 8 0"/>
+		</Style>
+	</UserControl.Styles>
+	<DockPanel>
+		<Grid
+			RowDefinitions="30, *"
 			DockPanel.Dock="Top"
-			Width="{Binding ContentVisibility}"
 		>
-			CONTENT
-		</TextBlock>
+			<TextBlock
+				Classes="Header"
+				Grid.Row="0"
+			>
+				CONTENT
+			</TextBlock>
+			<Border
+				Padding="18"
+				Grid.Row="1"
+			>
+				<Grid
+					ColumnDefinitions="50, *, 50"
+				>
+					<TextBlock
+						Classes="ContentListHeaderText"
+						Grid.Column="0"
+						Text="No."
+					/>
+					<TextBlock
+						Classes="ContentListHeaderText"
+						Grid.Column="1"
+						Text="Title"
+					/>
+					<TextBlock
+						Classes="ContentListHeaderText"
+						Grid.Column="2"
+						Text="Start"
+					/>
+				</Grid>
+			</Border>
+		</Grid>
 		<Button
+			Classes="TogglePaneButton"
 			Command="{Binding TogglePaneCommand}"
-			Height="100"
-			Width="20"
-			HorizontalAlignment="Right"
 			DockPanel.Dock="Right"
-			VerticalAlignment="Center"
-			Padding="0"
-			Background="#777"
-			CornerRadius="{Binding TogglePaneButtonCorners}"
 		>
-			<Svg Path="{Binding PaneToggleButtonIcon, StringFormat='Assets/Images/caret-{0}.svg'}" />
+			<Svg Path="{Binding PaneToggleButtonIcon, StringFormat='Assets/Images/caret-{0}.svg'}"/>
 		</Button>
-		<ListBox
-			Margin="4 0 4 4"
-			Background="#777"
-			DockPanel.Dock="Left"
-			Width="{Binding ContentVisibility}"
-			ItemsSource="{Binding ContentIndexes}"
-		>
-			<ListBox.ItemTemplate>
-				<DataTemplate>
-					<Border
-						Padding="4"
-					>
-						<Grid
-							Grid.Row="1"
-							ColumnDefinitions="20, *, 20, 20"
+		<ScrollViewer Classes="ContentListScroll" AllowAutoHide="False">
+			<ListBox
+				Classes="ContentList"
+				DockPanel.Dock="Left"
+				ItemsSource="{Binding ContentIndexes}"
+			>
+				<ListBox.ItemTemplate>
+					<DataTemplate>
+						<Border
+							Padding="4"
 						>
-							<TextBlock
-								FontSize="18"
-								Grid.Column="0"
-								Text="{Binding Index, StringFormat='{}{0}.'}"
-							/>
-							<TextBlock
-								FontSize="18"
-								Grid.Column="1"
-								Text="{Binding Title}"
-							/>
-							<TextBlock
-								FontSize="18"
-								Grid.Column="2"
-								Text="{Binding StartPage}"
-							/>
-							<TextBlock
-								FontSize="18"
-								Grid.Column="4"
-								Text="{Binding EndPage}"
-							/>
-						</Grid>
-					</Border>
-				</DataTemplate>
-			</ListBox.ItemTemplate>
-		</ListBox>
+							<Grid
+								Grid.Row="1"
+								ColumnDefinitions="50, *, 30"
+							>
+								<TextBlock
+									Classes="ContentListEntryText"
+									Grid.Column="0"
+									Text="{Binding Index, StringFormat='{}{0}.'}"
+								/>
+								<TextBlock
+									Classes="ContentListEntryText ContentListEntryTitleText"
+									Grid.Column="1"
+									Text="{Binding Title}"
+								/>
+								<TextBlock
+									Classes="ContentListEntryText"
+									Grid.Column="2"
+									Text="{Binding StartPage}"
+								/>
+							</Grid>
+						</Border>
+					</DataTemplate>
+				</ListBox.ItemTemplate>
+			</ListBox>
+		</ScrollViewer>
 	</DockPanel>
 </UserControl>

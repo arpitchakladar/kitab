@@ -11,7 +11,7 @@ public class MainWindowViewModel : ViewModelBase
 		get => _showPane;
 		set
 		{
-			ContentPane.OnPaneToggle(value);
+			ContentPane.ShowPane = value;
 			this.RaiseAndSetIfChanged(ref _showPane, value);
 		}
 	}

@@ -11,15 +11,25 @@
 	x:DataType="vm:MainWindowViewModel"
 	Title="KiTab"
 >
+	<Window.Styles>
+		<Style Selector="Grid.MainWindowContent">
+			<Setter Property="Background" Value="#000"/>
+		</Style>
+		<Style Selector="Rectangle.TopBar">
+			<Setter Property="Margin" Value="0 0 0 4"/>
+			<Setter Property="Fill" Value="#333"/>
+		</Style>
+	</Window.Styles>
+
 	<Design.DataContext>
 		<vm:MainWindowViewModel/>
 	</Design.DataContext>
 
 	<Grid
 		RowDefinitions="50, *"
-		Background="Black"
+		Classes="MainWindowContent"
 	>
-		<Rectangle Margin="0 0 0 4" Grid.Row="0" Fill="#333333"></Rectangle>
+		<Rectangle Grid.Row="0" Classes="TopBar"></Rectangle>
 		<SplitView
 			Grid.Row="1"
 			IsPaneOpen="{Binding ShowPane}"
