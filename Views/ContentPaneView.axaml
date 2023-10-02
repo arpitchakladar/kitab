@@ -91,7 +91,10 @@
 		>
 			<Svg Path="{Binding PaneToggleButtonIcon, StringFormat='Assets/Images/caret-{0}.svg'}"/>
 		</Button>
-		<ScrollViewer Classes="ContentListScroll" AllowAutoHide="False">
+		<ScrollViewer
+			Classes="ContentListScroll"
+			AllowAutoHide="False"
+		>
 			<ListBox
 				Classes="ContentList"
 				DockPanel.Dock="Left"

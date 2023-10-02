@@ -45,8 +45,8 @@
 				Grid.Row="1"
 				ColumnDefinitions="*, *"
 			>
-				<views:PDFViewerView Grid.Column="0" />
-				<views:PDFViewerView Grid.Column="1" Margin="0 0 4 0" />
+				<views:PDFViewerView Grid.Column="0" DataContext="{Binding PDFViewer[0]}" />
+				<views:PDFViewerView Grid.Column="1" DataContext="{Binding PDFViewer[1]}" Margin="0 0 4 0" />
 			</Grid>
 		</SplitView>
 	</Grid>

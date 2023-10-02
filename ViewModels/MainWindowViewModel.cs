@@ -1,4 +1,7 @@
 using ReactiveUI;
+using PdfLibCore;
+using System;
+using System.IO;
 
 namespace KiTab.ViewModels;
 
@@ -17,6 +20,7 @@ public class MainWindowViewModel : ViewModelBase
 	}
 
 	public ContentPaneViewModel ContentPane { get; }
+	public PDFViewerViewModel[] PDFViewer { get; }
 
 	public MainWindowViewModel()
 	{
@@ -27,5 +31,12 @@ public class MainWindowViewModel : ViewModelBase
 				}
 			)
 		);
+		PDFViewer = new PDFViewerViewModel[2] {
+			new PDFViewerViewModel(),
+			new PDFViewerViewModel()
+		};
+		using var pdfDocument = new PdfDocument(File.Open("./Tests/PDFs/IMO2022SL.pdf", FileMode.Open));
+		PDFViewer[0].LoadPage(pdfDocument, 3);
+		PDFViewer[1].LoadPage(pdfDocument, 4);
 	}
 }
