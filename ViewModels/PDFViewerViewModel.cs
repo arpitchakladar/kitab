@@ -10,29 +10,27 @@ namespace KiTab.ViewModels;
 
 public class PDFViewerViewModel : ViewModelBase
 {
-	public Bitmap? _page;
-	public Bitmap? Page
+	private Bitmap? _pageBitmap;
+	public Bitmap? PageBitmap
 	{
-		get => _page;
-		private set => this.RaiseAndSetIfChanged(ref _page, value);
+		get => _pageBitmap;
 	}
 
-	public void LoadPage(PdfDocument pdfDocument, int PageNumber)
-	{
-		var dpiX = 300D;
-		var dpiY = 300D;
+	private const double dpiX = 300D;
+	private const double dpiY = 300D;
 
-		using var pdfPage = pdfDocument.Pages[PageNumber];
+	public void LoadPage(PdfDocument pdfDocument, int pageNumber)
+	{
+		using var pdfPage = pdfDocument.Pages[pageNumber];
 		var pageWidth = (int) (dpiX * pdfPage.Size.Width / 72);
 		var pageHeight = (int) (dpiY * pdfPage.Size.Height / 72);
 		using var bitmap = new PdfiumBitmap(pageWidth, pageHeight, true);
 		pdfPage.Render(bitmap, PageOrientations.Normal, RenderingFlags.LcdText);
 		using var stream = bitmap.AsBmpStream(dpiX, dpiY);
-		using (MemoryStream ms = new MemoryStream())
-		{
-			stream.CopyTo(ms);
-			ms.Position = 0;
-			Page = new Bitmap(ms);
-		}
+		using var memory = new MemoryStream();
+		stream.CopyTo(memory);
+		memory.Position = 0;
+		_pageBitmap = new Bitmap(memory);
+		this.RaisePropertyChanged("PageBitmap");
 	}
 }

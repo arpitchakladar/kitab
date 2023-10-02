@@ -99,6 +99,7 @@
 				Classes="ContentList"
 				DockPanel.Dock="Left"
 				ItemsSource="{Binding ContentIndexes}"
+				SelectedIndex="{Binding CurrentContentIndex}"
 			>
 				<ListBox.ItemTemplate>
 					<DataTemplate>
@@ -122,7 +123,7 @@
 								<TextBlock
 									Classes="ContentListEntryText"
 									Grid.Column="2"
-									Text="{Binding StartPage}"
+									Text="{Binding Start}"
 								/>
 							</Grid>
 						</Border>

@@ -3,14 +3,14 @@ namespace KiTab.Models;
 public class ContentIndex {
 	public int Index { get; }
 	public string Title { get; }
-	public int StartPage { get; }
-	public int EndPage { get; }
+	public int Start { get; }
+	public int End { get; }
 
-	public ContentIndex(int Index, string Title, int StartPage, int EndPage)
+	public ContentIndex(int Index, string Title, int Start, int End)
 	{
 		this.Index = Index;
 		this.Title = Title;
-		this.StartPage = StartPage;
-		this.EndPage = EndPage;
+		this.Start = Start;
+		this.End = End;
 	}
 }

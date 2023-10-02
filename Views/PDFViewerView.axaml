@@ -7,10 +7,24 @@
 	x:DataType="vm:PDFViewerViewModel"
 	x:Class="KiTab.Views.PDFViewerView"
 >
-	<StackPanel Margin="4 0 0 4" Grid.Column="0" Background="#555555">
-		<StackPanel VerticalAlignment="Top" HorizontalAlignment="Left" Width="20" Margin="4 -2 4 4">
+	<UserControl.Styles>
+		<Style Selector="Image.PageViewer">
+			<Setter Property="Height" Value="{Binding #PDFViewerContainer.Bounds.Height}"/>
+			<Setter Property="Stretch" Value="Fill"/>
+		</Style>
+	</UserControl.Styles>
+	<DockPanel Margin="4 0 0 4" Name="PDFViewerContainer" Grid.Column="0" Background="#555555">
+		<StackPanel
+			ZIndex="1"
+			VerticalAlignment="Top"
+			HorizontalAlignment="Left"
+			DockPanel.Dock="Top"
+			Width="20"
+			Margin="4 -2 4 4"
+			MaxHeight="0"
+		>
 			<Image Source="{SvgImage Assets/Images/bookmark.svg}" />
 		</StackPanel>
-		<Image Source="{Binding Page}"/>
-	</StackPanel>
+		<Image DockPanel.Dock="Bottom" Classes="PageViewer" Source="{Binding PageBitmap}"/>
+	</DockPanel>
 </UserControl>
