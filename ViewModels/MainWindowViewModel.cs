@@ -1,10 +1,13 @@
 using ReactiveUI;
-using PdfLibCore;
 using System;
 using System.Linq;
 using System.Reactive;
 using System.Collections.Generic;
 using System.IO;
+using System.Threading.Tasks;
+using PdfLibCore;
+using PdfLibCore.Enums;
+using Avalonia.Media.Imaging;
 
 using KiTab.Models;
 
@@ -12,7 +15,7 @@ namespace KiTab.ViewModels;
 
 public class MainWindowViewModel : ViewModelBase
 {
-	private PdfDocument _pdfDocument;
+	private Bitmap?[] _pdfDocumentPagesBitmap;
 	private bool _showPane = true;
 
 	public bool ShowPane
@@ -31,9 +34,33 @@ public class MainWindowViewModel : ViewModelBase
 	private void LoadPages()
 	{
 		var content = ContentPane.ContentIndexes[ContentPane.CurrentContentIndex];
-		PDFViewer[0].LoadPage(_pdfDocument, content.Start);
-		PDFViewer[1].LoadPage(_pdfDocument, content.Start + 1);
+		PDFViewer[0].LoadPage(_pdfDocumentPagesBitmap[content.Start]);
+		PDFViewer[1].LoadPage(_pdfDocumentPagesBitmap[content.Start + 1]);
 	}
+
+	private static double dpiX = 300D;
+	private static double dpiY = 300D;
+
+	private Task GetBitmapOfPDFFromBytes(string pdfFilePath) =>
+		Task.Run(() => {
+			byte[] pdfData = File.ReadAllBytes(pdfFilePath);
+			var pdfDocument = new PdfDocument(pdfData);
+			_pdfDocumentPagesBitmap = new Bitmap[pdfDocument.Pages.Count];
+
+			for (var i = 0; i < pdfDocument.Pages.Count; i++)
+			{
+				using var pdfPage = pdfDocument.Pages[i];
+				var pageWidth = (int) (dpiX * pdfPage.Size.Width / 72);
+				var pageHeight = (int) (dpiY * pdfPage.Size.Height / 72);
+				using var bitmap = new PdfiumBitmap(pageWidth, pageHeight, true);
+				pdfPage.Render(bitmap, PageOrientations.Normal, RenderingFlags.LcdText);
+				using var stream = bitmap.AsBmpStream(dpiX, dpiY);
+				using var memory = new MemoryStream();
+				stream.CopyTo(memory);
+				memory.Position = 0;
+				_pdfDocumentPagesBitmap[i] = new Bitmap(memory);
+			}
+		});
 
 	public MainWindowViewModel()
 	{
@@ -56,7 +83,7 @@ public class MainWindowViewModel : ViewModelBase
 			},
 			RandomData
 		);
-		_pdfDocument = new PdfDocument(File.Open("./Tests/PDFs/IMO2022SL.pdf", FileMode.Open));
-		LoadPages();
+		GetBitmapOfPDFFromBytes("./Tests/PDFs/IMO2022SL.pdf")
+			.ContinueWith((Task _) => Task.Run(LoadPages));
 	}
 }
